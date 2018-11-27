@@ -77,7 +77,7 @@ public class JobForm {
     public void setLocations(ArrayList<Location> locations) { this.locations = locations; }
 
     public int getCoreCompetencyId() { return coreCompetencyId; }
-    public void setCoreCompetencyId(int coreCompetencyId) { this.coreCompetencyId = coreCompetencyId;}
+    public void setcoreCompetencyId(int coreCompetencyId) { this.coreCompetencyId = coreCompetencyId;}
     public ArrayList<CoreCompetency> getCoreCompetencies() { return coreCompetencies; }
     public void setCoreCompetencies(ArrayList<CoreCompetency> coreCompetencies) { this.coreCompetencies = coreCompetencies; }
 

@@ -46,9 +46,16 @@ public class JobController {
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
-        Job newJob = new Job(jobForm.getName(), );
 
-        return "redirect: job?id={id} ";
+        Job aJob = new Job(jobForm.getName(),
+                jobData.getEmployers().findAll().get(jobForm.getEmployerId()),
+                jobData.getLocations().findAll().get(jobForm.getLocationId()),
+                jobData.getCoreCompetencies().findAll().get(jobForm.getCoreCompetencyId()),
+                jobData.getPositionTypes().findAll().get(jobForm.getPositionTypeId()));
+
+        jobData.add(aJob);
+        int id = aJob.getId();
+        return "redirect: job?id={id}";
 
     }
 }
