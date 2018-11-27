@@ -1,6 +1,8 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.Job;
+import org.launchcode.models.JobField;
+import org.launchcode.models.JobFieldType;
 import org.launchcode.models.data.JobDataImporter;
 import org.launchcode.models.forms.JobForm;
 import org.launchcode.models.data.JobData;
@@ -47,15 +49,27 @@ public class JobController {
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
 
-        Job aJob = new Job(jobForm.getName(),
-                jobData.getEmployers().findAll().get(jobForm.getEmployerId()),
-                jobData.getLocations().findAll().get(jobForm.getLocationId()),
-                jobData.getCoreCompetencies().findAll().get(jobForm.getCoreCompetencyId()),
-                jobData.getPositionTypes().findAll().get(jobForm.getPositionTypeId()));
+        if (jobForm.getName().equals("")) {
+            model.addAttribute(new JobForm());
+            model.addAttribute("errors", errors);
+            return "new-job";
+        }
+
+        else {
+
+        Job aJob = new Job (jobForm.getName(),
+                jobData.getEmployers().findById(jobForm.getEmployerId()),
+                jobData.getLocations().findById(jobForm.getLocationId()),
+                jobData.getPositionTypes().findById(jobForm.getPositionTypeId()),
+                jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
 
         jobData.add(aJob);
+
         int id = aJob.getId();
-        return "redirect: job?id={id}";
+
+        model.addAttribute("id", id);
+        model.addAttribute("job", aJob);
+        return "job-detail";}
 
     }
 }
