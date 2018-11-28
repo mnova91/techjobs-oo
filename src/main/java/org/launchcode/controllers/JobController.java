@@ -12,6 +12,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -26,7 +27,7 @@ public class JobController {
 
     // The detail display for a given Job at URLs like /job?id=17
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String index(Model model, int id) {
+    public String index(Model model, @RequestParam int id) {
 
         // TODO #1 - get the Job with the given ID and pass it into the view
 
@@ -43,7 +44,7 @@ public class JobController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @Valid JobForm jobForm, Errors errors) {
+    public String add(Model model, @Valid JobForm jobForm, Errors errors, RedirectAttributes redirectAttributes) {
 
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
@@ -67,9 +68,9 @@ public class JobController {
 
         int id = aJob.getId();
 
-        model.addAttribute("id", id);
+        redirectAttributes.addAttribute("id", id);
         model.addAttribute("job", aJob);
-        return "job-detail";}
+        return "redirect:?id={id}";}
 
     }
 }
